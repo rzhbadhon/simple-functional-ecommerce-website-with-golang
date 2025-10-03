@@ -1,0 +1,7 @@
+
+frontend/* linguist-vendored
+node_modules/* linguist-vendored
+*.js linguist-vendored
+
+
+*.go linguist-detectable=true
