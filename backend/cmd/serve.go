@@ -13,7 +13,7 @@ func Serve() {
 	cnf := config.GetConfig()
 
 	productRepo := repo.NewProductRepo()
-	userRepo :=repo.NewUserRepo()
+	userRepo := repo.NewUserRepo()
 
 	middlewares := middleware.NewMiddlewares(cnf)
 

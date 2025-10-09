@@ -31,6 +31,8 @@ func (r *userRepo) Create(user User) (*User, error) {
 	}
 	user.ID = len(r.users) + 1
 	r.users = append(r.users, user)
+
+
 	return &user, nil
 }
 func (r *userRepo) Find(email, pass string) (*User, error) {
@@ -39,5 +41,7 @@ func (r *userRepo) Find(email, pass string) (*User, error) {
 			return &u, nil
 		}
 	}
+
+	
 	return nil, nil
 }

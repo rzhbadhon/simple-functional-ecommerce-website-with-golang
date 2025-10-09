@@ -36,6 +36,8 @@ func (r *productRepo) Create(p Product) (*Product, error){
 	r.productList = append(r.productList, &p)
 	return &p, nil
 }
+
+
 func (r *productRepo) Get(productID int) (*Product, error){
 	for _, product := range r.productList {
 		if product.ID == productID {
@@ -45,9 +47,13 @@ func (r *productRepo) Get(productID int) (*Product, error){
 	return nil, nil
 
 }
+
+
 func (r *productRepo) List() ([]*Product, error){
 	return r.productList, nil
 }
+
+
 func (r *productRepo) Delete(productID int) error{
 	var tempList []*Product
 
@@ -60,6 +66,8 @@ func (r *productRepo) Delete(productID int) error{
 
 	return nil
 }
+
+
 func (r *productRepo) Update(product Product) (*Product, error){
 	for idx, p := range r.productList {
 		if p.ID == product.ID {
@@ -68,6 +76,7 @@ func (r *productRepo) Update(product Product) (*Product, error){
 	}
 	return &product, nil
 }
+
 
 func generateInitialProducts(r *productRepo) {
 	prd1 := &Product{
