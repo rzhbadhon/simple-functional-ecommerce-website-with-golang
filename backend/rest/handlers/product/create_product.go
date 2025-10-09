@@ -8,8 +8,6 @@ import (
 )
 
 
-//    01:31:00
-
 
 type ReqCreatProduct struct {
 	ID          int     `json:"id"`
@@ -21,21 +19,27 @@ type ReqCreatProduct struct {
 
 func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 
-	var newProduct repo.Product
+	var req ReqCreatProduct
 
 	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&newProduct)
+	err := decoder.Decode(&req)
 
 	if err != nil {
-		http.Error(w, "Error of invalid json", 400)
+		util.SendError(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 
-	createdProduct, err := h.productRepo.Create(newProduct) //database.Store(newProduct)
+	createdProduct, err := h.productRepo.Create(repo.Product{
+		Title: req.Title,
+		Description: req.Description,
+		Price: req.Price,
+		ImgUrl: req.ImgUrl,
+	}) 
 	if err != nil{
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		util.SendError(w, http.StatusBadRequest, "Internal server error")
+		return
 	}
 
-	util.SendData(w, createdProduct, http.StatusOK)
+	util.SendData(w, http.StatusCreated, createdProduct)
 
 }

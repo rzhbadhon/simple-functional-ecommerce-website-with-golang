@@ -1,7 +1,7 @@
 package product
 
 import (
-	"ecommerce/database"
+	"ecommerce/repo"
 	"ecommerce/util"
 	"encoding/json"
 	"fmt"
@@ -9,29 +9,45 @@ import (
 	"strconv"
 )
 
-func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request){
+type ReqUpdateProduct struct {
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price"`
+	ImgUrl      string  `json:"imageUrl"`
+}
+
+func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	productID := r.PathValue("id")
 
 	pID, err := strconv.Atoi(productID)
 
-	if(err != nil){
-		http.Error(w, "Cant update the product", 400)
+	if err != nil {
+		util.SendError(w, http.StatusBadRequest, "Invalid product id")
 		return
 	}
 
-	var newProduct database.Product
+	var req ReqUpdateProduct
 	decoder := json.NewDecoder(r.Body)
-	err = decoder.Decode(&newProduct)
+	err = decoder.Decode(&req)
 
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
-		http.Error(w, "Cant update", 400)
+		util.SendError(w, http.StatusBadRequest, "Invalid request body")
+		return
 	}
 
-	newProduct.ID = pID
+	_, err = h.productRepo.Update(repo.Product{
+		ID:          pID,
+		Title:       req.Title,
+		Description: req.Description,
+		Price:       req.Price,
+		ImgUrl:      req.ImgUrl,
+	})
+	if err != nil {
+		util.SendError(w, http.StatusInternalServerError, "Internal server error")
+		return
+	}
 
-	database.Update(newProduct)
+	util.SendData(w, http.StatusOK, "Successfully updated the product")
 
-	util.SendData(w, "Successfully updated the product", 201)
-	
 }
