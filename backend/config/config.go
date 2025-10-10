@@ -10,6 +10,7 @@ import(
 
 var configurations *Config
 
+
 type Config struct{
 	Version string
 	ServiceName string
