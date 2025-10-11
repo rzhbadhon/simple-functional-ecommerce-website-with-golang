@@ -23,7 +23,7 @@ func GetConnectionString(cnf *config.DBConfig) string{
 		connString += " sslmode=disable"
 	}
 
-	return "user=postgres password=1212 host=localhost port=5432 dbname=ecommerce sslmode=disable"
+	return connString
 }
 
 
