@@ -10,13 +10,13 @@ import (
 
 func GetConnectionString(cnf *config.DBConfig) string{
 	connString := fmt.Sprintf(
-		"user=%s password=%s host=%s port=%d dbname=%s sslmode=%s",
+		"user=%s password=%s host=%s dbname=%s port=%d sslmode=%t",
 		cnf.User,
 		cnf.Password,
 		cnf.Host,
 		cnf.Name,
 		cnf.Port,
-		cnf.Name,
+		cnf.EnableSSLMODE,
 	)
 
 	if !cnf.EnableSSLMODE{
