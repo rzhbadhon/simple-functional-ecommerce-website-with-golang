@@ -5,6 +5,9 @@ import (
 	userHandler "ecommerce/rest/handlers/user"
 )
 
+
+/* This user folder is created to apply DDD model and to remove dependencies */
+
 type Service interface{
 	userHandler.Service
 }
