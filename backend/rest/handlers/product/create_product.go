@@ -1,13 +1,11 @@
 package product
 
 import (
-	"ecommerce/repo"
+	"ecommerce/domain"
 	"ecommerce/util"
 	"encoding/json"
 	"net/http"
 )
-
-
 
 type ReqCreatProduct struct {
 	ID          int     `json:"id"`
@@ -15,7 +13,7 @@ type ReqCreatProduct struct {
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	ImgUrl      string  `json:"imageUrl"`
-} 
+}
 
 func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 
@@ -29,13 +27,13 @@ func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdProduct, err := h.productRepo.Create(repo.Product{
-		Title: req.Title,
+	createdProduct, err := h.svc.Create(domain.Product{
+		Title:       req.Title,
 		Description: req.Description,
-		Price: req.Price,
-		ImgUrl: req.ImgUrl,
-	}) 
-	if err != nil{
+		Price:       req.Price,
+		ImgUrl:      req.ImgUrl,
+	})
+	if err != nil {
 		util.SendError(w, http.StatusBadRequest, "Internal server error")
 		return
 	}
