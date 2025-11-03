@@ -1,9 +1,12 @@
 package product
 
-import "ecommerce/domain"
+import (
+	"ecommerce/domain"
+	prdctHndlr "ecommerce/rest/handlers/product"
+)
 
-type Service interface{
-	
+type Service interface {
+	prdctHndlr.Service
 }
 type ProductRepo interface {
 	Create(p domain.Product) (*domain.Product, error)
