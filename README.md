@@ -57,10 +57,18 @@ The repository is organized into a `backend` and `frontend` monorepo structure f
 ```bash
 .
 ├── backend/
-│   ├── handlers/         # Request handling logic (Controllers)
-│   ├── models/           # Database schemas and business logic
-│   ├── routes/           # API route definitions
-│   └── utils/            # Helper functions and error handling
+│   ├── cmd/
+│   ├── config/
+│   ├── db_queries/
+│   ├── domain/
+│   ├── infra/
+│   ├── migration/
+│   ├── product/
+│   ├── repo/
+│   ├── rest/
+│   ├── user/
+│   ├── util/
+│   
 └── frontend/
     ├── public/           # Static assets
     └── src/
